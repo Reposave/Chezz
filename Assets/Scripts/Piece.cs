@@ -28,6 +28,7 @@ public class Piece : IDraggableObject
     void Start()
     {
         UpdatePieceType();
+        transform.position = SnapPosition(transform.position);
     }
 
     public override void OnMouseDown()

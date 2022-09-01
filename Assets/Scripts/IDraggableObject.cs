@@ -44,9 +44,15 @@ public abstract class IDraggableObject : MonoBehaviour
         Vector3 newPosition = GetMouseAsWorldPoint() + mouseOffset;
         newPosition.y = 0.0f;
         
-        snappedPosition = new Vector3((int)Mathf.Round(newPosition.x), 0.0f, (int)Mathf.Round(newPosition.z));
-
+        snappedPosition = SnapPosition(newPosition);
+        
         transform.position = newPosition;
+    }
+
+    protected virtual Vector3 SnapPosition(Vector3 position)
+    {
+        Vector3 resultPosition = new Vector3((int)Mathf.Round(position.x), 0.0f, (int)Mathf.Round(position.z));
+        return resultPosition;
     }
 
     private void OnTriggerEnter(Collider collision)
