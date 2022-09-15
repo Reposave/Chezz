@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2121e083c6d714893c4247364af2e8, type: 3}
-  m_Name: Knight
+  m_Script: {fileID: 11500000, guid: 2acf8395972033d4aa03fbb05216bee8, type: 3}
+  m_Name: KnightMovement
   m_EditorClassIdentifier: 
-  id: Knight
-  mesh: {fileID: 4300000, guid: 3d375d4a1907b3f4098bb64446492fed, type: 3}
-  movementData: {fileID: 11400000, guid: f7019f37cc3a52f4e9ca27e2a5586c4d, type: 2}
+  filePath: Assets/ScriptableObjects/PieceMovement/KnightMovement.json
+  Name: Knight
+  Tiles: []
