@@ -3,6 +3,9 @@ using UnityEngine.UI;
 
 namespace Board
 {
+    /// <summary>
+    /// Tiles created to be displayed on the UI.
+    /// </summary>
     public class TileUI : MonoBehaviour
     {
         private Image image;

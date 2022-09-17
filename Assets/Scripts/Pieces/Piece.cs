@@ -16,19 +16,19 @@ namespace Pieces
         [SerializeField]
         private PieceType pieceType;
 
-        public Player piecePlayer => player;
-
+        public Player PiecePlayer => player;
+        
+        // Start is called before the first frame update
+        private void Start()
+        {
+            UpdatePieceType();
+            transform.position = SnapPosition(transform.position);
+        }
+        
         public Vector3 Position
         {
             get => transform.position;
             set => transform.position = value;
-        }
-    
-        // Start is called before the first frame update
-        void Start()
-        {
-            UpdatePieceType();
-            transform.position = SnapPosition(transform.position);
         }
 
         public override void OnMouseDown()

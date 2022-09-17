@@ -13,17 +13,17 @@ namespace Board
         public TileInfo tileInfo;
     
         public int Id { get; set; }
-    
-        private void Awake()
-        {
-            tileInfo = new TileInfo();
-            sprite = spriteObject.GetComponent<SpriteRenderer>();
-        }
-
+        
         public void ChangeColor(Color color)
         {
             tileColor = color;
             sprite.color = color;
+        }
+        
+        private void Awake()
+        {
+            tileInfo = new TileInfo();
+            sprite = spriteObject.GetComponent<SpriteRenderer>();
         }
     }
 

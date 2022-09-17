@@ -37,7 +37,7 @@ public class GameTimer : MonoBehaviour
     private bool pauseTime = true;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         startTimer.onClick.AddListener(StartTimer);
         endTurn.onClick.AddListener(EndTurn);
@@ -45,7 +45,7 @@ public class GameTimer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (pauseTime)
         {
@@ -67,12 +67,12 @@ public class GameTimer : MonoBehaviour
         text.text = ((int)timer).ToString();
     }
 
-    public void TogglePause()
+    private void TogglePause()
     {
         pauseTime = !pauseTime;
     }
 
-    public void StartTimer()
+    private void StartTimer()
     {
         playerOneTimer = secondsPerPlayer;
         playerTwoTimer = secondsPerPlayer;
@@ -83,7 +83,7 @@ public class GameTimer : MonoBehaviour
         pauseTime = false;
     }
 
-    public void EndTurn()
+    private void EndTurn()
     {
         if (player == Player.One)
         {

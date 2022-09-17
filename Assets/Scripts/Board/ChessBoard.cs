@@ -10,6 +10,8 @@ namespace Board
         [SerializeField]
         private int width = 8;
         [SerializeField] 
+        private bool addBorder = false;
+        [SerializeField] 
         private GameObject tile;
         [SerializeField] 
         private GameObject tileUI;
@@ -24,30 +26,38 @@ namespace Board
     
         private Color tileColorPrimary = Color.white;
         private Color tileColorAlternate = Color.black;
-        private Color tileColorSides = new Color(0.5f, 0.4f, 0.2f, 1);
+        private Color borderColor = new Color(0.5f, 0.4f, 0.2f, 1);
 
         private bool selectAlternateColor = false;
         public int numberOfTiles { get; set; }
 
         // Start is called before the first frame update
-        void Start()
+        private void Start()
         {
-            SetupTiles();
+            SetupTiles(addBorder);
             _movementData.TilesInfos = _tileInfos;
             _movementData.OutputJson();
         }
 
         private void SetupTiles(bool withBorder = true)
         {
+            int borderSize = 0;
+            
+            if (withBorder)
+            {
+                borderSize = 2;
+            }
+            
             //Add 2 to create Borders around the board.
-            tiles = new List<Tile>((width+2) * (height+2));
-            _tileInfos = new List<TileInfo>((width+2) * (height+2));
+            tiles = new List<Tile>((width+borderSize) * (height+borderSize));
+            _tileInfos = new List<TileInfo>((width+borderSize) * (height+borderSize));
         
             for (int i = -1; i < height + 1; ++i)
             {
                 for (int j = -1; j < width + 1; ++j)
                 {
                     GameObject newTileObject = Instantiate(tile, transform);
+                    
                     //Assuming origin of chessboard is zero.
                     Vector3 position = new Vector3(j, 0, i);
                     newTileObject.transform.position = position;
@@ -63,7 +73,7 @@ namespace Board
                     ++numberOfTiles;
                 
                     Color newColor = selectAlternateColor ? tileColorAlternate : tileColorPrimary;
-                    newColor = IdentifyBorders(j, i) ? tileColorSides : newColor;
+                    newColor = IdentifyBorders(j, i) ? borderColor : newColor;
                 
                     selectAlternateColor = !selectAlternateColor;
                     newTile.ChangeColor(newColor);

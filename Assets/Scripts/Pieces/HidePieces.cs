@@ -20,13 +20,13 @@ namespace Pieces
             P2ToggleButton.onClick.AddListener(TogglePlayerTwoVisibility);
         }
 
-        public void TogglePlayerOneVisibility()
+        private void TogglePlayerOneVisibility()
         {
             player = Piece.Player.One;
             TogglePieceVisibility();
         }
 
-        public void TogglePlayerTwoVisibility()
+        private void TogglePlayerTwoVisibility()
         {
             player = Piece.Player.Two;
             TogglePieceVisibility();
@@ -38,7 +38,7 @@ namespace Pieces
         
             foreach (var piece in hiddenPieces)
             {
-                if (piece.piecePlayer != player)
+                if (piece.PiecePlayer != player)
                 {
                     continue;
                 }

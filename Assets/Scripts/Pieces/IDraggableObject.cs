@@ -21,8 +21,14 @@ namespace Pieces
             isColliding = false;
             transform.position = snappedPosition;
         }
+        
+        protected virtual Vector3 SnapPosition(Vector3 position)
+        {
+            Vector3 resultPosition = new Vector3((int)Mathf.Round(position.x), 0.0f, (int)Mathf.Round(position.z));
+            return resultPosition;
+        }
 
-        void MousePositionCorrection()
+        private void MousePositionCorrection()
         {
             mouseOffset = transform.position - GetMouseAsWorldPoint();
         }
@@ -49,12 +55,6 @@ namespace Pieces
             snappedPosition = SnapPosition(newPosition);
         
             transform.position = newPosition;
-        }
-
-        protected virtual Vector3 SnapPosition(Vector3 position)
-        {
-            Vector3 resultPosition = new Vector3((int)Mathf.Round(position.x), 0.0f, (int)Mathf.Round(position.z));
-            return resultPosition;
         }
 
         private void OnTriggerEnter(Collider collision)
