@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Board;
 using Newtonsoft.Json;
 
 [CreateAssetMenu(menuName = "Create Piece Movement")]
