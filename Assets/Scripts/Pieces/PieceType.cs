@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Pieces
 {
@@ -9,10 +10,13 @@ namespace Pieces
         private string id;
         [SerializeField]
         private Mesh mesh;
-    
-        public MovementData movementData;
+        [SerializeField]
+        private Sprite uiMovementImage;
 
+        public MovementData movementData;
+        
         public string ID => id;
         public Mesh PieceMesh => mesh;
+        public Sprite UiMovementImage => uiMovementImage;
     }
 }

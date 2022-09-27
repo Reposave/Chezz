@@ -8,21 +8,23 @@ namespace Board
         [SerializeField] 
         private GameObject spriteObject;
         private SpriteRenderer sprite;
-        private Color tileColor;
 
-        public TileInfo tileInfo;
-    
-        public int Id { get; set; }
-        
+        public TileInfo Info;
+
+        public int Id
+        {
+            get => Info.Id;
+            set => Info.Id = value;
+        }
+
         public void ChangeColor(Color color)
         {
-            tileColor = color;
             sprite.color = color;
         }
         
         private void Awake()
         {
-            tileInfo = new TileInfo();
+            Info = new TileInfo();
             sprite = spriteObject.GetComponent<SpriteRenderer>();
         }
     }
@@ -42,8 +44,8 @@ namespace Board
             MovementAndAttack
         }
 
-        public int Id;
-    
+        public int Id { get; set; }
+
         public TileState State = TileState.Normal;
     }
 }

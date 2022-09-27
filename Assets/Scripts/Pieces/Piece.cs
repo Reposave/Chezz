@@ -1,3 +1,4 @@
+using Board;
 using UnityEngine;
 
 namespace Pieces
@@ -16,7 +17,10 @@ namespace Pieces
         [SerializeField]
         private PieceType pieceType;
 
+        private Sprite tileUIMovement;
+
         public Player PiecePlayer => player;
+        public Sprite TileUIMovement => tileUIMovement;
         
         // Start is called before the first frame update
         private void Start()
@@ -75,6 +79,8 @@ namespace Pieces
             pieceMeshFilter.mesh = pieceType.PieceMesh;
 
             gameObject.name = pieceType.ID;
+
+            tileUIMovement = pieceType.UiMovementImage;
         }
     }
 }

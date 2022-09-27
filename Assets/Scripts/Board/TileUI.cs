@@ -4,24 +4,20 @@ using UnityEngine.UI;
 namespace Board
 {
     /// <summary>
-    /// Tiles created to be displayed on the UI.
+    /// Displays the movement of a piece. 
     /// </summary>
     public class TileUI : MonoBehaviour
     {
-        private Image image;
-        private Color tileColor;
-    
-        public int Id { get; set; }
+        private static Image image;
     
         private void Awake()
         {
             image = GetComponent<Image>();
         }
-    
-        public void ChangeColor(Color color)
+
+        public static void UpdateUI(Sprite sprite)
         {
-            tileColor = color;
-            image.color = color;
+            image.sprite = sprite;
         }
     }
 }

@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: King
   mesh: {fileID: 4300000, guid: 0d4dc18442ed9d14698239a5a964f27f, type: 3}
+  uiMovementImage: {fileID: 21300000, guid: 4f618aa78ef9da844826db1143abe1b9, type: 3}
+  movementData: {fileID: 0}

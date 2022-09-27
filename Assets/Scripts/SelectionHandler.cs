@@ -1,4 +1,5 @@
 using System;
+using Board;
 using Pieces;
 using UnityEditor;
 using UnityEngine;
@@ -38,6 +39,9 @@ public class SelectionHandler : MonoBehaviour
         DeselectPiece();
         selectedPiece = piece;
         highlighter.SetActive(true);
+
+        //1....
+        UpdateTileUI();
     }
 
     /// <summary>
@@ -53,5 +57,11 @@ public class SelectionHandler : MonoBehaviour
         highlighter.SetActive(false);
 
         selectedPiece = null;
+    }
+
+    //1. Function is too specific to be in SelectionHandler??
+    private static void UpdateTileUI()
+    {
+        TileUI.UpdateUI(selectedPiece.TileUIMovement);
     }
 }
