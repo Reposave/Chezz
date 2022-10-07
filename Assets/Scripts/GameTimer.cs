@@ -13,8 +13,10 @@ public class GameTimer : MonoBehaviour
       Two
     }
 
-    private float playerOneTimer;
-    private float playerTwoTimer;
+    [SerializeField]
+    private Timer playerOneTimer;
+    [SerializeField]
+    private Timer playerTwoTimer;
 
     [SerializeField]
     private Player player;
@@ -26,73 +28,55 @@ public class GameTimer : MonoBehaviour
     [SerializeField] 
     private Button pauseTimer;
 
-    [SerializeField] 
-    private TextMeshProUGUI playerOneTimerText;
-    [SerializeField] 
-    private TextMeshProUGUI playerTwoTimerText;
-
     [SerializeField]
     private int secondsPerPlayer = 60;
 
-    private bool pauseTime = true;
+    private Timer activeTimer;
 
     // Start is called before the first frame update
     private void Start()
     {
+        SetActivePlayer(Player.One, playerOneTimer);
+
         startTimer.onClick.AddListener(StartTimer);
         endTurn.onClick.AddListener(EndTurn);
         pauseTimer.onClick.AddListener(TogglePause);
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (pauseTime)
-        {
-            return;
-        }
-
-        if (player == Player.One)
-        {
-            DecrementTimer(ref playerOneTimer, ref playerOneTimerText);
-            return;
-        }
-        
-        DecrementTimer(ref playerTwoTimer, ref playerTwoTimerText);
-    }
-
-    private void DecrementTimer(ref float timer, ref TextMeshProUGUI text)
-    {
-        timer -= Time.deltaTime;
-        text.text = ((int)timer).ToString();
-    }
-
     private void TogglePause()
     {
-        pauseTime = !pauseTime;
+        activeTimer.PauseTime = true;
     }
 
     private void StartTimer()
     {
-        playerOneTimer = secondsPerPlayer;
-        playerTwoTimer = secondsPerPlayer;
+        playerOneTimer.PlayerTimer = secondsPerPlayer;
+        playerTwoTimer.PlayerTimer = secondsPerPlayer;
 
-        playerOneTimerText.text = playerOneTimer.ToString();
-        playerTwoTimerText.text = playerTwoTimer.ToString();
-
-        pauseTime = false;
+        activeTimer.PauseTime = false;
     }
 
     private void EndTurn()
     {
         if (player == Player.One)
         {
-            playerTwoTimer = secondsPerPlayer;
-            player = Player.Two;
+            SetActivePlayer(Player.Two, playerTwoTimer);
             return;
         }
 
-        playerOneTimer = secondsPerPlayer;
-        player = Player.One;
+        SetActivePlayer(Player.One, playerOneTimer);
+    }
+
+    private void SetActivePlayer(Player playerToSet, Timer playerTimer)
+    {
+        if(activeTimer != null)
+        {
+            activeTimer.PauseTime = true;
+        }
+        
+        playerTimer.PlayerTimer = secondsPerPlayer;
+
+        player = playerToSet;
+        activeTimer = playerTimer;
     }
 }

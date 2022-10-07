@@ -62,6 +62,6 @@ public class SelectionHandler : MonoBehaviour
     //1. Function is too specific to be in SelectionHandler??
     private static void UpdateTileUI()
     {
-        TileUI.UpdateUI(selectedPiece.TileUIMovement);
+        //TileUI.UpdateUI(selectedPiece.TileUIMovement);
     }
 }
