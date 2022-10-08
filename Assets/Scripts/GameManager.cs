@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
-public class GameTimer : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
     private enum Player{
       One,
@@ -29,18 +29,30 @@ public class GameTimer : MonoBehaviour
     private Button pauseTimer;
 
     [SerializeField]
+    private TextMeshProUGUI movesText;
+    [SerializeField]
+    private TextMeshProUGUI turnsText;
+
+    [SerializeField]
     private int secondsPerPlayer = 60;
 
     private Timer activeTimer;
 
+    private int playerOneMoves;
+    private int playerTwoMoves;
+    private int turnNumber;
+
     // Start is called before the first frame update
     private void Start()
     {
-        SetActivePlayer(Player.One, playerOneTimer);
+        playerOneMoves = 0;
+        playerTwoMoves = 0;
 
         startTimer.onClick.AddListener(StartTimer);
         endTurn.onClick.AddListener(EndTurn);
         pauseTimer.onClick.AddListener(TogglePause);
+
+        SetActivePlayer(Player.One, playerOneTimer);
     }
 
     private void TogglePause()
@@ -60,14 +72,27 @@ public class GameTimer : MonoBehaviour
     {
         if (player == Player.One)
         {
-            SetActivePlayer(Player.Two, playerTwoTimer);
+            playerOneMoves = 0;
+            playerTwoMoves = 1;
+            SetActivePlayer(Player.Two, playerTwoTimer, pauseTimer: false);
+            
             return;
         }
 
-        SetActivePlayer(Player.One, playerOneTimer);
+        playerTwoMoves = 0;
+        playerOneMoves = 1;
+        SetActivePlayer(Player.One, playerOneTimer, pauseTimer: false);
+        
+        StartNextTurn();
     }
 
-    private void SetActivePlayer(Player playerToSet, Timer playerTimer)
+    private void StartNextTurn()
+    {
+        ++turnNumber;
+        turnsText.text = turnNumber.ToString();
+    }
+
+    private void SetActivePlayer(Player playerToSet, Timer playerTimer, bool pauseTimer = true)
     {
         if(activeTimer != null)
         {
@@ -78,5 +103,14 @@ public class GameTimer : MonoBehaviour
 
         player = playerToSet;
         activeTimer = playerTimer;
+        activeTimer.PauseTime = pauseTimer;
+
+        if (player == Player.One) {
+            movesText.text = playerOneMoves.ToString();
+        }
+        else
+        {
+            movesText.text = playerTwoMoves.ToString();
+        }
     }
 }

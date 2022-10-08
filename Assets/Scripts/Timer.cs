@@ -7,6 +7,7 @@ public class Timer : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI playerTimerText;
+
     private float playerTimer;
 
     public float PlayerTimer
