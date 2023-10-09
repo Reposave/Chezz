@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
+using Pieces;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private int secondsPerPlayer = 60;
+    [SerializeField]
+    private PieceOptions pieceOptionsMenu;
 
     private Timer activeTimer;
 
@@ -51,6 +54,9 @@ public class GameManager : MonoBehaviour
         startTimer.onClick.AddListener(StartTimer);
         endTurn.onClick.AddListener(EndTurn);
         pauseTimer.onClick.AddListener(TogglePause);
+
+        pieceOptionsMenu.MoveButton.onClick.AddListener(UseMove);
+        Piece.pieceOptionsMenu = pieceOptionsMenu;
 
         SetActivePlayer(Player.One, playerOneTimer);
     }
@@ -105,7 +111,34 @@ public class GameManager : MonoBehaviour
         activeTimer = playerTimer;
         activeTimer.PauseTime = pauseTimer;
 
-        if (player == Player.One) {
+        UpdateMoveText();
+    }
+
+    private void UseMove()
+    {
+        if (player == Player.One)
+        {
+            if (playerOneMoves > 0)
+            {
+                --playerOneMoves;
+            }
+        }
+        else
+        {
+            if (playerTwoMoves > 0)
+            {
+                --playerTwoMoves;
+            }
+        }
+
+        UpdateMoveText();
+        pieceOptionsMenu.MovePiece();
+    }
+
+    private void UpdateMoveText()
+    {
+        if (player == Player.One)
+        {
             movesText.text = playerOneMoves.ToString();
         }
         else

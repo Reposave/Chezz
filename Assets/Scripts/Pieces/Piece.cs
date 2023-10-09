@@ -1,4 +1,5 @@
 using Board;
+using TMPro;
 using UnityEngine;
 
 namespace Pieces
@@ -16,8 +17,14 @@ namespace Pieces
         private Player player;
         [SerializeField]
         private PieceType pieceType;
+        [SerializeField]
+        private TextMeshProUGUI shotsAvailableText;
 
         private Sprite tileUIMovement;
+
+        public static PieceOptions pieceOptionsMenu;
+
+        public int ShotsAvailable { get; set; } = 0;
 
         public Player PiecePlayer => player;
         public Sprite TileUIMovement => tileUIMovement;
@@ -37,12 +44,23 @@ namespace Pieces
 
         public override void OnMouseDown()
         {
+            if (IsMouseOverUI())
+            {
+                return;
+            }
+
             SelectionHandler.SelectPiece(this);
+            pieceOptionsMenu.SetSelectedPiece(this);
             base.OnMouseDown();
         }
 
         public override void OnMouseUp()
         {
+            if (IsMouseOverUI())
+            {
+                return;
+            }
+
             if (isColliding)
             {
                 snappedPosition.y = 1.0f;
@@ -54,6 +72,11 @@ namespace Pieces
 
         public override void OnMouseDrag()
         {
+            if (IsMouseOverUI())
+            {
+                return;
+            }
+
             base.OnMouseDrag();
             Vector3 selectionPosition = SelectionHandler.Position;
             SelectionHandler.Position = new Vector3(snappedPosition.x, selectionPosition.y, snappedPosition.z);
@@ -66,6 +89,19 @@ namespace Pieces
             {
                 SelectionHandler.HighlightColor = SelectionHandler.NormalColor;
             }
+        }
+
+        public void useShot()
+        {
+            if (ShotsAvailable > 0)
+            {
+                --ShotsAvailable;
+            }
+        }
+
+        public void AddShot()
+        {
+            ++ShotsAvailable;
         }
 
         private void UpdatePieceType()

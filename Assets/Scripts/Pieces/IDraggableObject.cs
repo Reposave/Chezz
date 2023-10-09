@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Pieces
 {
@@ -26,6 +27,16 @@ namespace Pieces
         {
             Vector3 resultPosition = new Vector3((int)Mathf.Round(position.x), 0.0f, (int)Mathf.Round(position.z));
             return resultPosition;
+        }
+
+        protected bool IsMouseOverUI()
+        {
+            if (EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private void MousePositionCorrection()
